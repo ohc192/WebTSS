@@ -8,7 +8,6 @@ $aGlobalConfig = array
 	),
 	"cron" => array
 	(
-		"python2.7Location" => "/usr/bin/python2.7", // Path to python 2.7, no trailing slash or space.
 		"enableWebAccess" => True // Allow cron triggering through the url.
 	),
 	"recaptcha" => array

@@ -81,7 +81,7 @@
 		// Do initial scan for blobs. 
 		// TODO: Make this async
 		$webTSSRoot = realpath(dirname(__FILE__));
-		$command = $aGlobalConfig['cron']['python2.7Location'].' '.$webTSSRoot.'/bins/savethemblobs.py '.hexdec($ecid).' '.basename($platform).' --skip-cydia --skip-ifaith --save-dir '.$webTSSRoot.'/tss/'.hexdec($ecid);
+		$command = $webTSSRoot.'/bins/tsschecker -e '.hexdec($ecid).' -d '.basename($platform).' -s -l --save-path '.$webTSSRoot.'/tss/'.hexdec($ecid);
 		@shell_exec($command);
 		
 		header('Location: '.str_replace("/".basename(__FILE__), "", $_SERVER['PHP_SELF']).'/tss/'.hexdec($ecid));

@@ -25,7 +25,10 @@
 		
 	if(!is_readable($webTSSRoot.'/bins'))
 		die('Can\'t read "'.$webTSSRoot.'/bins"..');
-
+	
+	if(!is_executable($webTSSRoot.'/bins/tsschecker'))
+		die('TSSChecker is not executable. Please fix this with chmod +x '.$webTSSRoot.'/bins/tsschecker');
+	
 	if (mysqli_connect_errno())
 		die('Can\'t connect to the database..');
 
@@ -41,7 +44,7 @@
 		while ($stmt->fetch()) {
 			cronPrint("Working on $ecid ($platform)..");
 
-			$command = $aGlobalConfig['cron']['python2.7Location'].' '.$webTSSRoot.'/bins/savethemblobs.py '.hexdec($ecid).' '.basename($platform).' --skip-cydia --skip-ifaith --save-dir '.$webTSSRoot.'/tss/'.hexdec($ecid);
+			$command = $webTSSRoot.'/bins/tsschecker -e '.hexdec($ecid).' -d '.basename($platform).' -s -l --save-path '.$webTSSRoot.'/tss/'.hexdec($ecid);
 		
 			if(!is_dir($webTSSRoot.'/tss/'.hexdec($ecid))) {
 				cronPrint("Creating \"".$webTSSRoot.'/tss/'.hexdec($ecid)."\"..");
