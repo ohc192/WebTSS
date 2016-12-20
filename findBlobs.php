@@ -1,6 +1,6 @@
 <?php
 	try {
-		require 'config.php';
+		require_once('config.php');
 		
 		if(empty($_POST['ecid']))
 			throw new Exception('Please provide an ECID.');
@@ -15,7 +15,7 @@
 			throw new Exception('Invalid ECID.');
 		}
 
-		$conn = new mysqli($aGlobalConfig['database']['host'], $aGlobalConfig['database']['username'], $aGlobalConfig['database']['password'], $aGlobalConfig['database']['database']);
+		$conn = new mysqli($aGlobalConfig['database']['host'], $aGlobalConfig['database']['username'], $aGlobalConfig['database']['password'], $aGlobalConfig['database']['database'],$aGlobalConfig['database']['port']);
 
 		
 		if (mysqli_connect_errno())

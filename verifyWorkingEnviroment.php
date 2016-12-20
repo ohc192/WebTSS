@@ -1,16 +1,23 @@
 <?php
-	require 'config.php';
-	require 'functions.php';
-	
+    require_once ('config.php');
+    require_once ('functions.php');
+    	
 	$webTSSRoot = realpath(dirname(__FILE__));
-	$mysqli = new mysqli($aGlobalConfig['database']['host'], $aGlobalConfig['database']['username'], $aGlobalConfig['database']['password'], $aGlobalConfig['database']['database']);
+	$mysqli = new mysqli($aGlobalConfig['database']['host'], $aGlobalConfig['database']['username'], $aGlobalConfig['database']['password'], $aGlobalConfig['database']['database'],$aGlobalConfig['database']['port']);
+	
+	if ($mysqli->connect_error) {
+        cronPrint($mysqli->connect_error);
+		cronPrint('Database configuration invalid. Abandoning further checks.');
+    	die();
+	}
+	    
 	$tssPermissions = substr(sprintf('%o', fileperms($webTSSRoot.'/tss')), -4);
 	$webtssPermissions = substr(sprintf('%o', fileperms($webTSSRoot)), -4);
 	$binsPermissions = substr(sprintf('%o', fileperms($webTSSRoot.'/bins')), -4);
 	
-	$runningUser = shell_exec("whoami");
+	$runningUser = trim(shell_exec("whoami"));
 	cronPrint("Script is running under \"".$runningUser."\". Is this the web server user?");
-	cronPrint("This user's primary group is \"".shell_exec("id -g -n ".$runningUser)."\". Does this group have access to \"".$webTSSRoot."\"?");
+	cronPrint("This user's primary group is \"". trim(shell_exec("id -g -n ".$runningUser))."\". Does this group have access to \"".$webTSSRoot."\"?");
 	// tss directory check.
 	if(!is_dir($webTSSRoot.'/tss'))
 		cronPrint('Please create the directory "'.$webTSSRoot.'/tss'.'"..');
@@ -61,12 +68,16 @@
 	$mysqli->close();
 	
 	//Tsschecker test
+    $binary = $aGlobalConfig["tssbinary"];
+    $binarypath = $webTSSRoot."/bins/$binary";
+    cronPrint("Detected tss binary for operating system is: $binarypath");
+    
 	// (Can I check the version without creating a python script for it?)
-	if(!file_exists($webTSSRoot.'/bins/tsschecker'))
-		cronPrint('Could not find tsschecker at '.$webTSSRoot.'/bins/tsschecker');
+	if(!file_exists($binarypath))
+		cronPrint("Could not find tsschecker at $binarypath");
 	
-	if(!is_executable($webTSSRoot.'/bins/tsschecker'))
-		cronPrint('tsschecker is not executable! Please fix it by running chmod +x '.$webTSSRoot.'/bins/tsschecker');
+	if(!is_executable($binarypath))
+		cronPrint("tsschecker is not executable! Please fix it by running chmod +x $binarypath");
 	
 	cronPrint("The permissions of '".$webTSSRoot.'/tss'."' are ".$tssPermissions.". Is this enough to write and read?");
 	cronPrint("The permissions of '".$webTSSRoot.'/bins'."' are ".$binsPermissions.". Is this enough to write and read?");
