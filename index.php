@@ -82,7 +82,7 @@
 							For your convenience, WebTSS supports both hex and digit/decimal forms of your ECID.
 						</li>
 						<li>
-							The first time you submit your information for to WebTSS blobs will be downloaded immediately. After that, the server will search for blobs on a regular basis depending on what the host has set.
+							The first time you submit your information to WebTSS your blobs will be downloaded immediately. After that, the server will search for blobs on a regular basis depending on what the host has set.
 						</li>
 					</ul>
 				  </div>
