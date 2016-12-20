@@ -78,14 +78,15 @@
 			throw new Exception('SQL Error');
 		}
 		
+		$webTSSRoot = realpath(dirname(__FILE__));
+				
 		if(!mkdir($webTSSRoot.'/tss/'.hexdec($ecid)))
-			throw new Exception('Couldn\t make user directory.');
+			throw new Exception('Couldn\'t make user directory.');
 			
 		// Do initial scan for blobs. 
 		// TODO: Make this async
 		
 		// Big thanks to 1Conan!
-		$webTSSRoot = realpath(dirname(__FILE__));
 		$signedVersionsURL = "https://api.ipsw.me/v2.1/firmwares.json/condensed"; 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
