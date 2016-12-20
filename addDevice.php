@@ -78,6 +78,12 @@
 			throw new Exception('SQL Error');
 		}
 		
+		// Do initial scan for blobs. 
+		// TODO: Make this async
+		$webTSSRoot = realpath(dirname(__FILE__));
+		$command = $aGlobalConfig['cron']['python2.7Location'].' '.$webTSSRoot.'/bins/savethemblobs.py '.hexdec($ecid).' '.basename($platform).' --skip-cydia --skip-ifaith --save-dir '.$webTSSRoot.'/tss/'.hexdec($ecid);
+		@shell_exec($command);
+		
 		header('Location: '.str_replace("/".basename(__FILE__), "", $_SERVER['PHP_SELF']).'/tss/'.hexdec($ecid));
 	} catch (Exception $e) {
 		header("Location: index.php?e=".urlencode($e->getMessage()));
