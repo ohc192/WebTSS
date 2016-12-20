@@ -1,7 +1,7 @@
 # WebTSS
 An open-source web alternative to tsssaver.
 
-## Installation 
+## Installation
 1. Drag and drop this projects files into a web directory.
 2. Allow write access to the "tss" folder.
 3. Configure "cron.php" to run on a schedule. (On linux you can use crontab -e)
@@ -15,6 +15,7 @@ An open-source web alternative to tsssaver.
 - PHP MySQLi extension
 - Access to a cron/trigger for cron.php
 - Preferrably linux
+- shell_exec() enabled (disabled by default on some shared hosts)
 
 ## Features
 - Open source under MIT.
