@@ -98,14 +98,14 @@
 
 		$firmwares = $data['devices'][$_POST['platform']]['firmwares'];
 		$countFirmwares = count($firmwares);
-		for($i = 0; $i < $countFirmwares; $i++) {
-			$current = $firmwares[$i];
-			if($current['signed'] == true) {
-    			$binary = $aGlobalConfig["tssbinary"];
-				$command = $webTSSRoot."/bins/$binary -e ".hexdec($ecid).' -d '.basename($_POST['platform']).' -s --buildid '.$current['buildid'].' --save-path '.$webTSSRoot.'/tss/'.hexdec($ecid);
-				@shell_exec($command);
-			}
-		}
+        for($i = 0; $i < $countFirmwares; $i++) {
+            $current = $firmwares[$i];
+            if($current['signed'] == true) {
+                $binary = $aGlobalConfig["tssbinary"];
+                $command = $webTSSRoot."/bins/$binary -e ".hexdec($ecid).' -d '.basename($_POST['platform']).' -s --buildid '.$current['buildid'].' --save-path '.$webTSSRoot.'/tss/'.hexdec($ecid);
+                @shell_exec($command);
+            }
+        }
 
 		header('Location: '.str_replace("/".basename(__FILE__), "", $_SERVER['PHP_SELF']).'/tss/'.hexdec($ecid));
 	} catch (Exception $e) {

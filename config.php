@@ -26,8 +26,8 @@ $aGlobalConfig = array
 	(
 		"host" => "127.0.0.1", // use an actual IP address instead of localhost to stop it from using a socket
 		"port" => "3306",
-		"username" => "webtss",
-		"password" => "webtss",
+		"username" => "<DB USERNAME>",
+		"password" => "<DB PASSWORD>",
 		"database" => "webtss"
 	)
 );
