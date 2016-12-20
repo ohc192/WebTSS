@@ -14,3 +14,6 @@ An open-source web alternative to tsssaver.
 - PHP MySQLi extension
 - Access to a cron/trigger for cron.php
 - Preferrably linux
+
+## Preview
+![Image preview](http://i.imgur.com/mJvorlR.png)
