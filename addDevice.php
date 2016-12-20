@@ -78,6 +78,9 @@
 			throw new Exception('SQL Error');
 		}
 		
+		if(!mkdir($webTSSRoot.'/tss/'.hexdec($ecid)))
+			throw new Exception('Couldn\t make user directory.');
+			
 		// Do initial scan for blobs. 
 		// TODO: Make this async
 		
