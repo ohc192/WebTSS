@@ -17,4 +17,4 @@ An open-source web alternative to tsssaver.
 - Python 2.7
 
 ## Preview
-![Image preview](http://i.imgur.com/mJvorlR.png)
+![Image preview](http://i.imgur.com/ssHPknd.png)
