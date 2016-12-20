@@ -15,8 +15,6 @@ An open-source web alternative to tsssaver.
 - PHP MySQLi extension
 - Access to a cron/trigger for cron.php
 - Preferrably linux
-- Python **2.7**
-- Python "requests" module (On debian "apt-get install python-requests" should work)
 
 ## Features
 - Open source under MIT.
