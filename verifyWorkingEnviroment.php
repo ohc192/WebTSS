@@ -8,8 +8,9 @@
 	$webtssPermissions = substr(sprintf('%o', fileperms($webTSSRoot)), -4);
 	$binsPermissions = substr(sprintf('%o', fileperms($webTSSRoot.'/bins')), -4);
 	
-	cronPrint("Script is running under \"".shell_exec("whoami")."\". Is this the web server user?");
-	
+	$runningUser = shell_exec("whoami");
+	cronPrint("Script is running under \"".$runningUser."\". Is this the web server user?");
+	cronPrint("This user's primary group is \"".shell_exec("id -g -n ".$runningUser)."\". Does this group have access to \"".$webTSSRoot."\"?");
 	// tss directory check.
 	if(!is_dir($webTSSRoot.'/tss'))
 		cronPrint('Please create the directory "'.$webTSSRoot.'/tss'.'"..');
