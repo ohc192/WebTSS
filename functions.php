@@ -8,3 +8,6 @@
 			echo $message."<br/>";
 		}
 	}
+    function contains($needle, $haystack) {
+        return stripos($haystack, $needle) !== false;
+    }

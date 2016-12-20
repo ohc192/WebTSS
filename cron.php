@@ -1,6 +1,6 @@
 <?php
-	require 'config.php';
-	require 'functions.php';
+require_once('config.php');
+require_once('functions.php');
 
 	if(!$aGlobalConfig['cron']['enableWebAccess'])
 		die("The website administrator has disabled cron triggers through the URL.");
@@ -8,7 +8,7 @@
 	cronPrint('WebTSS cron running..');
 
 	$webTSSRoot = realpath(dirname(__FILE__));
-	$mysqli = new mysqli($aGlobalConfig['database']['host'], $aGlobalConfig['database']['username'], $aGlobalConfig['database']['password'], $aGlobalConfig['database']['database']);
+	$mysqli = new mysqli($aGlobalConfig['database']['host'], $aGlobalConfig['database']['username'], $aGlobalConfig['database']['password'], $aGlobalConfig['database']['database'],$aGlobalConfig['database']['port']);
 	$tssPermissions = substr(sprintf('%o', fileperms($webTSSRoot.'/tss')), -4);
 	
 	if(!is_dir($webTSSRoot.'/tss'))
@@ -69,7 +69,8 @@
 				for($i = 0; $i < $countFirmwares; $i++) {
 					$current = $firmwares[$i];
 					if($current['signed'] == true) {
-						$command = $webTSSRoot.'/bins/tsschecker -e '.hexdec($ecid).' -d '.basename($platform).' -s --buildid '.$current['buildid'].' --save-path '.$webTSSRoot.'/tss/'.hexdec($ecid);
+                        $binary = $aGlobalConfig["tssbinary"];
+						$command = $webTSSRoot."/bins/$binary -e ".hexdec($ecid).' -d '.basename($platform).' -s --buildid '.$current['buildid'].' --save-path '.$webTSSRoot.'/tss/'.hexdec($ecid);
 						cronPrint("Running \"".$command."\"..");
 						@shell_exec($command);
 					}	

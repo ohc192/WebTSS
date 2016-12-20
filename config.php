@@ -1,6 +1,11 @@
 <?php
+require_once('functions.php');
+$ismac = contains("darwin", php_uname('s'));
+$islinux = contains("linux", php_uname('s'));
+    
 $aGlobalConfig = array
 (
+    "tssbinary" => $ismac ? "tsschecker_latest_macos" : "tsschecker_latest_linux",
 	"interface" => array
 	(
 		"appURL" => "http://virulent.pw/webtss", // Full url to WebTSS, no trailing slash or space.
@@ -17,15 +22,16 @@ $aGlobalConfig = array
 		"siteKey" => "",
 		"secretKey" => ""
 	),
-	"database" => array 
+	"database" => array
 	(
-		"host" => "localhost",
+		"host" => "127.0.0.1", // use an actual IP address instead of localhost to stop it from using a socket
 		"port" => "3306",
-		"username" => "<DB USERNAME>",
-		"password" => "<DB PASSWORD>",
+		"username" => "webtss",
+		"password" => "webtss",
 		"database" => "webtss"
 	)
 );
+
 
 
 
