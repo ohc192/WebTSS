@@ -2,14 +2,15 @@
 require_once('config.php');
 require_once('functions.php');
 
-	if(!$aGlobalConfig['cron']['enableWebAccess'])
+if(!$aGlobalConfig['cron']['enableWebAccess'])
 		die("The website administrator has disabled cron triggers through the URL.");
 	
-	cronPrint('WebTSS cron running..');
+cronPrint('WebTSS cron running..');
 
-	$webTSSRoot = realpath(dirname(__FILE__));
-	$mysqli = new mysqli($aGlobalConfig['database']['host'], $aGlobalConfig['database']['username'], $aGlobalConfig['database']['password'], $aGlobalConfig['database']['database'],$aGlobalConfig['database']['port']);
-	$tssPermissions = substr(sprintf('%o', fileperms($webTSSRoot.'/tss')), -4);
+        $webTSSRoot = realpath(dirname(__FILE__));
+        $mysqli = new mysqli($aGlobalConfig['database']['host'], $aGlobalConfig['database']['username'], $aGlobalConfig['database']['password'], $aGlobalConfig['database']['database'],$aGlobalConfig['database']['port']);
+        $tssPermissions = substr(sprintf('%o', fileperms($webTSSRoot.'/tss')), -4);
+        $binary = $aGlobalConfig["tssbinary"];
 	
 	if(!is_dir($webTSSRoot.'/tss'))
 		die('Please create the directory "'.$webTSSRoot.'/tss'.'"..');
@@ -26,8 +27,8 @@ require_once('functions.php');
 	if(!is_readable($webTSSRoot.'/bins'))
 		die('Can\'t read "'.$webTSSRoot.'/bins"..');
 	
-	if(!is_executable($webTSSRoot.'/bins/tsschecker'))
-		die('TSSChecker is not executable. Please fix this with chmod +x '.$webTSSRoot.'/bins/tsschecker');
+	if(!is_executable($webTSSRoot."/bins/$binary"))
+		die('TSSChecker is not executable. Please fix this with chmod +x '.$webTSSRoot."/bins/$binary");
 	
 	if (mysqli_connect_errno())
 		die('Can\'t connect to the database..');
@@ -69,7 +70,6 @@ require_once('functions.php');
 				for($i = 0; $i < $countFirmwares; $i++) {
 					$current = $firmwares[$i];
 					if($current['signed'] == true) {
-                        $binary = $aGlobalConfig["tssbinary"];
 						$command = $webTSSRoot."/bins/$binary -e ".hexdec($ecid).' -d '.basename($platform).' -s --buildid '.$current['buildid'].' --save-path '.$webTSSRoot.'/tss/'.hexdec($ecid);
 						cronPrint("Running \"".$command."\"..");
 						@shell_exec($command);
