@@ -5,6 +5,8 @@
 	$webTSSRoot = realpath(dirname(__FILE__));
 	$mysqli = new mysqli($aGlobalConfig['database']['host'], $aGlobalConfig['database']['username'], $aGlobalConfig['database']['password'], $aGlobalConfig['database']['database']);
 	$tssPermissions = substr(sprintf('%o', fileperms($webTSSRoot.'/tss')), -4);
+	$webtssPermissions = substr(sprintf('%o', fileperms($webTSSRoot)), -4);
+	$binsPermissions = substr(sprintf('%o', fileperms($webTSSRoot.'/bins')), -4);
 	
 	cronPrint("Script is running under \"".shell_exec("whoami")."\". Is this the web server user?");
 	
@@ -62,5 +64,9 @@
 	if(!file_exists($aGlobalConfig['cron']['python2.7Location']))
 		cronPrint('Could not find python at '.$aGlobalConfig['cron']['python2.7Location']);
 	
-	cronPrint('Your enviroment looks ready for WebTSS.');
+	cronPrint("The permissions of '".$webTSSRoot.'/tss'."' are ".$tssPermissions.". Is this enough to write and read?");
+	cronPrint("The permissions of '".$webTSSRoot.'/bins'."' are ".$binsPermissions.". Is this enough to write and read?");
+	cronPrint("The permissions of '".$webTSSRoot."' are ".$webtssPermissions.". Is this enough to write and read?");	
+	
+	cronPrint('verifyWorkingEnviroment.php exit.');
 	
