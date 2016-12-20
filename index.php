@@ -76,7 +76,7 @@
 							WebTSS is licensed under the MIT license. <3
 						</li>
 						<li>
-							WebTSS is made possible by <a href="https://reddit.com/r/GotKrypto76">/u/GotKrypto76</a>.
+							WebTSS is made possible by <a href="https://reddit.com/u/GotKrypto76">/u/GotKrypto76</a>.
 						</li>
 						<li>
 							For your convenience, WebTSS supports both hex and digit/decimal forms of your ECID.
@@ -94,7 +94,7 @@
 				  <div class="panel-body">
 				  <form action="addDevice.php" method="POST" class="form-horizontal">
 					<div class="form-group">
-					  <label class="control-label col-sm-2" for="ecid">ECID:</label>
+					  <label class="control-label col-sm-2" for="ecid">ECID [<a href="https://www.theiphonewiki.com/wiki/ECID")>?</a>:</label>
 					  <div class="col-sm-10">
 						<input type="text" class="form-control" id="ecid" name="ecid" placeholder="Enter your ECID">
 					  </div>
