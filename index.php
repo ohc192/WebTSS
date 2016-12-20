@@ -76,7 +76,7 @@
 							WebTSS is licensed under the MIT license. <3
 						</li>
 						<li>
-							WebTSS is made possible by <a href="https://reddit.com/r/GotKrypto76">/u/GotKrypto76</a>.
+							WebTSS is made possible by <a href="https://reddit.com/u/GotKrypto76">/u/GotKrypto76</a>.
 						</li>
 						<li>
 							For your convenience, WebTSS supports both hex and digit/decimal forms of your ECID.
