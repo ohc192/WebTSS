@@ -60,10 +60,13 @@
 	$stmt->close();
 	$mysqli->close();
 	
-	//Python check
+	//Tsschecker test
 	// (Can I check the version without creating a python script for it?)
-	if(!file_exists($aGlobalConfig['cron']['python2.7Location']))
-		cronPrint('Could not find python at '.$aGlobalConfig['cron']['python2.7Location']);
+	if(!file_exists($webTSSRoot.'/bins/tsschecker'))
+		cronPrint('Could not find tsschecker at '.$webTSSRoot.'/bins/tsschecker');
+	
+	if(!is_executable($webTSSRoot.'/bins/tsschecker'))
+		cronPrint('tsschecker is not executable! Please fix it by running chmod +x '.$webTSSRoot.'/bins/tsschecker');
 	
 	cronPrint("The permissions of '".$webTSSRoot.'/tss'."' are ".$tssPermissions.". Is this enough to write and read?");
 	cronPrint("The permissions of '".$webTSSRoot.'/bins'."' are ".$binsPermissions.". Is this enough to write and read?");
