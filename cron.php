@@ -41,7 +41,7 @@
 		while ($stmt->fetch()) {
 			cronPrint("Working on $ecid ($platform)..");
 
-			$command = $aGlobalConfig['cron']['python2.7Location'].' '.$webTSSRoot.'/bins/savethemblobs.py '.hexdec($ecid).' '.$platform.' --skip-cydia --skip-ifaith --save-dir '.$webTSSRoot.'/tss/'.hexdec($ecid);
+			$command = $aGlobalConfig['cron']['python2.7Location'].' '.$webTSSRoot.'/bins/savethemblobs.py '.hexdec($ecid).' '.basename($platform).' --skip-cydia --skip-ifaith --save-dir '.$webTSSRoot.'/tss/'.hexdec($ecid);
 		
 			if(!is_dir($webTSSRoot.'/tss/'.hexdec($ecid))) {
 				cronPrint("Creating \"".$webTSSRoot.'/tss/'.hexdec($ecid)."\"..");
