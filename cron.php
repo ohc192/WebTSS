@@ -54,8 +54,26 @@
 			if(!is_readable($webTSSRoot.'/tss/'.hexdec($ecid)) || !is_writable($webTSSRoot.'/tss/'.hexdec($ecid))) {
 				cronPrint('Can\'t read and/or write to "'.$webTSSRoot.'/tss/'.hexdec($ecid).'"..');
 			} else {
-				cronPrint("Running \"$command\"..");
-				shell_exec($command);
+				// Big thanks to 1Conan!
+				$signedVersionsURL = "https://api.ipsw.me/v2.1/firmwares.json/condensed"; 
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_URL,$signedVersionsURL);
+				$result = curl_exec($ch);
+				curl_close($ch);
+				$data = json_decode($result, true);
+
+				$firmwares = $data['devices'][$platform]['firmwares'];
+				$countFirmwares = count($firmwares);
+				for($i = 0; $i < $countFirmwares; $i++) {
+					$current = $firmwares[$i];
+					if($current['signed'] == true) {
+						$command = $webTSSRoot.'/bins/tsschecker -e '.hexdec($ecid).' -d '.basename($platform).' -s --buildid '.$current['buildid'].' --save-path '.$webTSSRoot.'/tss/'.hexdec($ecid);
+						cronPrint("Running \"".$command."\"..");
+						@shell_exec($command);
+					}	
+				}
 			}
 		}
 

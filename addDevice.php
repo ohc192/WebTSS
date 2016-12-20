@@ -80,9 +80,27 @@
 		
 		// Do initial scan for blobs. 
 		// TODO: Make this async
+		
+		// Big thanks to 1Conan!
 		$webTSSRoot = realpath(dirname(__FILE__));
-		$command = $webTSSRoot.'/bins/tsschecker -e '.hexdec($ecid).' -d '.basename($platform).' -s -l --save-path '.$webTSSRoot.'/tss/'.hexdec($ecid);
-		@shell_exec($command);
+		$signedVersionsURL = "https://api.ipsw.me/v2.1/firmwares.json/condensed"; 
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_URL,$signedVersionsURL);
+		$result = curl_exec($ch);
+		curl_close($ch);
+		$data = json_decode($result, true);
+
+		$firmwares = $data['devices'][$_POST['platform']]['firmwares'];
+		$countFirmwares = count($firmwares);
+		for($i = 0; $i < $countFirmwares; $i++) {
+			$current = $firmwares[$i];
+			if($current['signed'] == true) {
+				$command = $webTSSRoot.'/bins/tsschecker -e '.hexdec($ecid).' -d '.basename($platform).' -s --buildid '.$current['buildid'].' --save-path '.$webTSSRoot.'/tss/'.hexdec($ecid);
+				@shell_exec($command);
+			}	
+		}
 		
 		header('Location: '.str_replace("/".basename(__FILE__), "", $_SERVER['PHP_SELF']).'/tss/'.hexdec($ecid));
 	} catch (Exception $e) {
