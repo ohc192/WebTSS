@@ -31,7 +31,7 @@
 		}
 		
 		if(ctype_digit($_POST['ecid'])) { // Client provided a non-hex ECID. Convert it for them.
-			$ecid = strtoupper(dechex($_POST['ecid']));
+			$ecid = strtoupper(base_convert($_POST['ecid'], 10, 16));
 		} elseif(ctype_xdigit($_POST['ecid'])) { // Client provided a hex ECID, just assign the variable.
 			$ecid = strtoupper($_POST['ecid']);
 		} else {
