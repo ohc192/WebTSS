@@ -16,5 +16,15 @@ An open-source web alternative to tsssaver.
 - Preferrably linux
 - Python 2.7
 
+## Features
+- Open source under MIT.
+- Add devices and find already added devices.
+- Fully automated.
+- New ECIDs get blobs instantly.
+- 17 different bootstrap themes.
+- Easily configurable.
+- Recaptcha supported.
+- Verifies ECID structure somewhat.
+
 ## Preview
 ![Image preview](http://i.imgur.com/ssHPknd.png)
