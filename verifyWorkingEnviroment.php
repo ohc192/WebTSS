@@ -72,7 +72,6 @@
     $binarypath = $webTSSRoot."/bins/$binary";
     cronPrint("Detected tss binary for operating system is: $binarypath");
     
-	// (Can I check the version without creating a python script for it?)
 	if(!file_exists($binarypath))
 		cronPrint("Could not find tsschecker at $binarypath");
 	
