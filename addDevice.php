@@ -92,6 +92,7 @@
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_URL,$signedVersionsURL);
+		curl_setopt($ch, CURLOPT_USERAGENT, "WebTSS - More info at https://github.com/gotkrypto76/WebTSS");
 		$result = curl_exec($ch);
 		curl_close($ch);
 		$data = json_decode($result, true);
