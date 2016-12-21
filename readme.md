@@ -1,5 +1,5 @@
 # WebTSS
-An open-source web alternative to tsssaver.
+An online front-end to tsschecker licensed under MIT.
 
 ## Installation
 1. Drag and drop this projects files into a web directory.
